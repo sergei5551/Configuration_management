@@ -53,15 +53,15 @@ python emulator.py filesystem.tar
 
 После чего попадаем в сделанный эмулятор сеанса shell 
 ## ls
-![]()
+![ls](https://github.com/sergei5551/Configuration_management/blob/Main/1hw/additional_files/ls.jpg)
 ## echo
-![]()
+![echo](https://github.com/sergei5551/Configuration_management/blob/Main/1hw/additional_files/echo.jpg)
 ## clear
-![]()
+![clear](https://github.com/sergei5551/Configuration_management/blob/Main/1hw/additional_files/clear.gif)
 ## cd
-![]()
+![cd](https://github.com/sergei5551/Configuration_management/blob/Main/1hw/additional_files/cd.jpg)
 ## exit
-
+![exit](https://github.com/sergei5551/Configuration_management/blob/Main/1hw/additional_files/exit.gif)
 
 
 
