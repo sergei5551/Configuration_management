@@ -1,0 +1,584 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    ARROW
+    SET
+
+Grammar
+
+Rule 0     S' -> config
+Rule 1     config -> server_block
+Rule 2     config -> setlist
+Rule 3     setlist -> set
+Rule 4     setlist -> set setlist
+Rule 5     set -> NAME EQUALS value SEMI
+Rule 6     value -> NUMBER
+Rule 7     value -> STRING
+Rule 8     value -> array
+Rule 9     value -> dict
+Rule 10    value -> dollar_expr
+Rule 11    array -> LSQUARE values RSQUARE
+Rule 12    values -> value
+Rule 13    values -> value COMMA values
+Rule 14    dict -> LBRACE pairs RBRACE
+Rule 15    pairs -> pair
+Rule 16    pairs -> pair COMMA pairs
+Rule 17    pair -> NAME MINUS GREATER value
+Rule 18    dollar_expr -> DOLLAR LPAREN NAME RPAREN
+Rule 19    SEMI -> <empty>
+Rule 20    MINUS -> -
+Rule 21    GREATER -> >
+Rule 22    server_block -> SERVER LBRACE server_options RBRACE
+Rule 23    server_options -> option
+Rule 24    server_options -> option server_options
+Rule 25    option -> NAME EQUALS value SEMI
+
+Terminals, with rules where they appear
+
+-                    : 20
+>                    : 21
+ARROW                : 
+COMMA                : 13 16
+DOLLAR               : 18
+EQUALS               : 5 25
+LBRACE               : 14 22
+LPAREN               : 18
+LSQUARE              : 11
+NAME                 : 5 17 18 25
+NUMBER               : 6
+RBRACE               : 14 22
+RPAREN               : 18
+RSQUARE              : 11
+SERVER               : 22
+SET                  : 
+STRING               : 7
+error                : 
+
+Nonterminals, with rules where they appear
+
+GREATER              : 17
+MINUS                : 17
+SEMI                 : 5 25
+array                : 8
+config               : 0
+dict                 : 9
+dollar_expr          : 10
+option               : 23 24
+pair                 : 15 16
+pairs                : 14 16
+server_block         : 1
+server_options       : 22 24
+set                  : 3 4
+setlist              : 2 4
+value                : 5 12 13 17 25
+values               : 11 13
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . config
+    (1) config -> . server_block
+    (2) config -> . setlist
+    (22) server_block -> . SERVER LBRACE server_options RBRACE
+    (3) setlist -> . set
+    (4) setlist -> . set setlist
+    (5) set -> . NAME EQUALS value SEMI
+
+    SERVER          shift and go to state 4
+    NAME            shift and go to state 6
+
+    config                         shift and go to state 1
+    server_block                   shift and go to state 2
+    setlist                        shift and go to state 3
+    set                            shift and go to state 5
+
+state 1
+
+    (0) S' -> config .
+
+
+
+state 2
+
+    (1) config -> server_block .
+
+    $end            reduce using rule 1 (config -> server_block .)
+
+
+state 3
+
+    (2) config -> setlist .
+
+    $end            reduce using rule 2 (config -> setlist .)
+
+
+state 4
+
+    (22) server_block -> SERVER . LBRACE server_options RBRACE
+
+    LBRACE          shift and go to state 7
+
+
+state 5
+
+    (3) setlist -> set .
+    (4) setlist -> set . setlist
+    (3) setlist -> . set
+    (4) setlist -> . set setlist
+    (5) set -> . NAME EQUALS value SEMI
+
+    $end            reduce using rule 3 (setlist -> set .)
+    NAME            shift and go to state 6
+
+    set                            shift and go to state 5
+    setlist                        shift and go to state 8
+
+state 6
+
+    (5) set -> NAME . EQUALS value SEMI
+
+    EQUALS          shift and go to state 9
+
+
+state 7
+
+    (22) server_block -> SERVER LBRACE . server_options RBRACE
+    (23) server_options -> . option
+    (24) server_options -> . option server_options
+    (25) option -> . NAME EQUALS value SEMI
+
+    NAME            shift and go to state 12
+
+    server_options                 shift and go to state 10
+    option                         shift and go to state 11
+
+state 8
+
+    (4) setlist -> set setlist .
+
+    $end            reduce using rule 4 (setlist -> set setlist .)
+
+
+state 9
+
+    (5) set -> NAME EQUALS . value SEMI
+    (6) value -> . NUMBER
+    (7) value -> . STRING
+    (8) value -> . array
+    (9) value -> . dict
+    (10) value -> . dollar_expr
+    (11) array -> . LSQUARE values RSQUARE
+    (14) dict -> . LBRACE pairs RBRACE
+    (18) dollar_expr -> . DOLLAR LPAREN NAME RPAREN
+
+    NUMBER          shift and go to state 14
+    STRING          shift and go to state 15
+    LSQUARE         shift and go to state 19
+    LBRACE          shift and go to state 20
+    DOLLAR          shift and go to state 21
+
+    value                          shift and go to state 13
+    array                          shift and go to state 16
+    dict                           shift and go to state 17
+    dollar_expr                    shift and go to state 18
+
+state 10
+
+    (22) server_block -> SERVER LBRACE server_options . RBRACE
+
+    RBRACE          shift and go to state 22
+
+
+state 11
+
+    (23) server_options -> option .
+    (24) server_options -> option . server_options
+    (23) server_options -> . option
+    (24) server_options -> . option server_options
+    (25) option -> . NAME EQUALS value SEMI
+
+    RBRACE          reduce using rule 23 (server_options -> option .)
+    NAME            shift and go to state 12
+
+    option                         shift and go to state 11
+    server_options                 shift and go to state 23
+
+state 12
+
+    (25) option -> NAME . EQUALS value SEMI
+
+    EQUALS          shift and go to state 24
+
+
+state 13
+
+    (5) set -> NAME EQUALS value . SEMI
+    (19) SEMI -> .
+
+    NAME            reduce using rule 19 (SEMI -> .)
+    $end            reduce using rule 19 (SEMI -> .)
+
+    SEMI                           shift and go to state 25
+
+state 14
+
+    (6) value -> NUMBER .
+
+    NAME            reduce using rule 6 (value -> NUMBER .)
+    $end            reduce using rule 6 (value -> NUMBER .)
+    COMMA           reduce using rule 6 (value -> NUMBER .)
+    RSQUARE         reduce using rule 6 (value -> NUMBER .)
+    RBRACE          reduce using rule 6 (value -> NUMBER .)
+
+
+state 15
+
+    (7) value -> STRING .
+
+    NAME            reduce using rule 7 (value -> STRING .)
+    $end            reduce using rule 7 (value -> STRING .)
+    COMMA           reduce using rule 7 (value -> STRING .)
+    RSQUARE         reduce using rule 7 (value -> STRING .)
+    RBRACE          reduce using rule 7 (value -> STRING .)
+
+
+state 16
+
+    (8) value -> array .
+
+    NAME            reduce using rule 8 (value -> array .)
+    $end            reduce using rule 8 (value -> array .)
+    COMMA           reduce using rule 8 (value -> array .)
+    RSQUARE         reduce using rule 8 (value -> array .)
+    RBRACE          reduce using rule 8 (value -> array .)
+
+
+state 17
+
+    (9) value -> dict .
+
+    NAME            reduce using rule 9 (value -> dict .)
+    $end            reduce using rule 9 (value -> dict .)
+    COMMA           reduce using rule 9 (value -> dict .)
+    RSQUARE         reduce using rule 9 (value -> dict .)
+    RBRACE          reduce using rule 9 (value -> dict .)
+
+
+state 18
+
+    (10) value -> dollar_expr .
+
+    NAME            reduce using rule 10 (value -> dollar_expr .)
+    $end            reduce using rule 10 (value -> dollar_expr .)
+    COMMA           reduce using rule 10 (value -> dollar_expr .)
+    RSQUARE         reduce using rule 10 (value -> dollar_expr .)
+    RBRACE          reduce using rule 10 (value -> dollar_expr .)
+
+
+state 19
+
+    (11) array -> LSQUARE . values RSQUARE
+    (12) values -> . value
+    (13) values -> . value COMMA values
+    (6) value -> . NUMBER
+    (7) value -> . STRING
+    (8) value -> . array
+    (9) value -> . dict
+    (10) value -> . dollar_expr
+    (11) array -> . LSQUARE values RSQUARE
+    (14) dict -> . LBRACE pairs RBRACE
+    (18) dollar_expr -> . DOLLAR LPAREN NAME RPAREN
+
+    NUMBER          shift and go to state 14
+    STRING          shift and go to state 15
+    LSQUARE         shift and go to state 19
+    LBRACE          shift and go to state 20
+    DOLLAR          shift and go to state 21
+
+    values                         shift and go to state 26
+    value                          shift and go to state 27
+    array                          shift and go to state 16
+    dict                           shift and go to state 17
+    dollar_expr                    shift and go to state 18
+
+state 20
+
+    (14) dict -> LBRACE . pairs RBRACE
+    (15) pairs -> . pair
+    (16) pairs -> . pair COMMA pairs
+    (17) pair -> . NAME MINUS GREATER value
+
+    NAME            shift and go to state 30
+
+    pairs                          shift and go to state 28
+    pair                           shift and go to state 29
+
+state 21
+
+    (18) dollar_expr -> DOLLAR . LPAREN NAME RPAREN
+
+    LPAREN          shift and go to state 31
+
+
+state 22
+
+    (22) server_block -> SERVER LBRACE server_options RBRACE .
+
+    $end            reduce using rule 22 (server_block -> SERVER LBRACE server_options RBRACE .)
+
+
+state 23
+
+    (24) server_options -> option server_options .
+
+    RBRACE          reduce using rule 24 (server_options -> option server_options .)
+
+
+state 24
+
+    (25) option -> NAME EQUALS . value SEMI
+    (6) value -> . NUMBER
+    (7) value -> . STRING
+    (8) value -> . array
+    (9) value -> . dict
+    (10) value -> . dollar_expr
+    (11) array -> . LSQUARE values RSQUARE
+    (14) dict -> . LBRACE pairs RBRACE
+    (18) dollar_expr -> . DOLLAR LPAREN NAME RPAREN
+
+    NUMBER          shift and go to state 14
+    STRING          shift and go to state 15
+    LSQUARE         shift and go to state 19
+    LBRACE          shift and go to state 20
+    DOLLAR          shift and go to state 21
+
+    value                          shift and go to state 32
+    array                          shift and go to state 16
+    dict                           shift and go to state 17
+    dollar_expr                    shift and go to state 18
+
+state 25
+
+    (5) set -> NAME EQUALS value SEMI .
+
+    NAME            reduce using rule 5 (set -> NAME EQUALS value SEMI .)
+    $end            reduce using rule 5 (set -> NAME EQUALS value SEMI .)
+
+
+state 26
+
+    (11) array -> LSQUARE values . RSQUARE
+
+    RSQUARE         shift and go to state 33
+
+
+state 27
+
+    (12) values -> value .
+    (13) values -> value . COMMA values
+
+    RSQUARE         reduce using rule 12 (values -> value .)
+    COMMA           shift and go to state 34
+
+
+state 28
+
+    (14) dict -> LBRACE pairs . RBRACE
+
+    RBRACE          shift and go to state 35
+
+
+state 29
+
+    (15) pairs -> pair .
+    (16) pairs -> pair . COMMA pairs
+
+    RBRACE          reduce using rule 15 (pairs -> pair .)
+    COMMA           shift and go to state 36
+
+
+state 30
+
+    (17) pair -> NAME . MINUS GREATER value
+    (20) MINUS -> . -
+
+    -               shift and go to state 38
+
+    MINUS                          shift and go to state 37
+
+state 31
+
+    (18) dollar_expr -> DOLLAR LPAREN . NAME RPAREN
+
+    NAME            shift and go to state 39
+
+
+state 32
+
+    (25) option -> NAME EQUALS value . SEMI
+    (19) SEMI -> .
+
+    NAME            reduce using rule 19 (SEMI -> .)
+    RBRACE          reduce using rule 19 (SEMI -> .)
+
+    SEMI                           shift and go to state 40
+
+state 33
+
+    (11) array -> LSQUARE values RSQUARE .
+
+    NAME            reduce using rule 11 (array -> LSQUARE values RSQUARE .)
+    $end            reduce using rule 11 (array -> LSQUARE values RSQUARE .)
+    COMMA           reduce using rule 11 (array -> LSQUARE values RSQUARE .)
+    RSQUARE         reduce using rule 11 (array -> LSQUARE values RSQUARE .)
+    RBRACE          reduce using rule 11 (array -> LSQUARE values RSQUARE .)
+
+
+state 34
+
+    (13) values -> value COMMA . values
+    (12) values -> . value
+    (13) values -> . value COMMA values
+    (6) value -> . NUMBER
+    (7) value -> . STRING
+    (8) value -> . array
+    (9) value -> . dict
+    (10) value -> . dollar_expr
+    (11) array -> . LSQUARE values RSQUARE
+    (14) dict -> . LBRACE pairs RBRACE
+    (18) dollar_expr -> . DOLLAR LPAREN NAME RPAREN
+
+    NUMBER          shift and go to state 14
+    STRING          shift and go to state 15
+    LSQUARE         shift and go to state 19
+    LBRACE          shift and go to state 20
+    DOLLAR          shift and go to state 21
+
+    value                          shift and go to state 27
+    values                         shift and go to state 41
+    array                          shift and go to state 16
+    dict                           shift and go to state 17
+    dollar_expr                    shift and go to state 18
+
+state 35
+
+    (14) dict -> LBRACE pairs RBRACE .
+
+    NAME            reduce using rule 14 (dict -> LBRACE pairs RBRACE .)
+    $end            reduce using rule 14 (dict -> LBRACE pairs RBRACE .)
+    COMMA           reduce using rule 14 (dict -> LBRACE pairs RBRACE .)
+    RSQUARE         reduce using rule 14 (dict -> LBRACE pairs RBRACE .)
+    RBRACE          reduce using rule 14 (dict -> LBRACE pairs RBRACE .)
+
+
+state 36
+
+    (16) pairs -> pair COMMA . pairs
+    (15) pairs -> . pair
+    (16) pairs -> . pair COMMA pairs
+    (17) pair -> . NAME MINUS GREATER value
+
+    NAME            shift and go to state 30
+
+    pair                           shift and go to state 29
+    pairs                          shift and go to state 42
+
+state 37
+
+    (17) pair -> NAME MINUS . GREATER value
+    (21) GREATER -> . >
+
+    >               shift and go to state 44
+
+    GREATER                        shift and go to state 43
+
+state 38
+
+    (20) MINUS -> - .
+
+    >               reduce using rule 20 (MINUS -> - .)
+
+
+state 39
+
+    (18) dollar_expr -> DOLLAR LPAREN NAME . RPAREN
+
+    RPAREN          shift and go to state 45
+
+
+state 40
+
+    (25) option -> NAME EQUALS value SEMI .
+
+    NAME            reduce using rule 25 (option -> NAME EQUALS value SEMI .)
+    RBRACE          reduce using rule 25 (option -> NAME EQUALS value SEMI .)
+
+
+state 41
+
+    (13) values -> value COMMA values .
+
+    RSQUARE         reduce using rule 13 (values -> value COMMA values .)
+
+
+state 42
+
+    (16) pairs -> pair COMMA pairs .
+
+    RBRACE          reduce using rule 16 (pairs -> pair COMMA pairs .)
+
+
+state 43
+
+    (17) pair -> NAME MINUS GREATER . value
+    (6) value -> . NUMBER
+    (7) value -> . STRING
+    (8) value -> . array
+    (9) value -> . dict
+    (10) value -> . dollar_expr
+    (11) array -> . LSQUARE values RSQUARE
+    (14) dict -> . LBRACE pairs RBRACE
+    (18) dollar_expr -> . DOLLAR LPAREN NAME RPAREN
+
+    NUMBER          shift and go to state 14
+    STRING          shift and go to state 15
+    LSQUARE         shift and go to state 19
+    LBRACE          shift and go to state 20
+    DOLLAR          shift and go to state 21
+
+    value                          shift and go to state 46
+    array                          shift and go to state 16
+    dict                           shift and go to state 17
+    dollar_expr                    shift and go to state 18
+
+state 44
+
+    (21) GREATER -> > .
+
+    NUMBER          reduce using rule 21 (GREATER -> > .)
+    STRING          reduce using rule 21 (GREATER -> > .)
+    LSQUARE         reduce using rule 21 (GREATER -> > .)
+    LBRACE          reduce using rule 21 (GREATER -> > .)
+    DOLLAR          reduce using rule 21 (GREATER -> > .)
+
+
+state 45
+
+    (18) dollar_expr -> DOLLAR LPAREN NAME RPAREN .
+
+    NAME            reduce using rule 18 (dollar_expr -> DOLLAR LPAREN NAME RPAREN .)
+    $end            reduce using rule 18 (dollar_expr -> DOLLAR LPAREN NAME RPAREN .)
+    COMMA           reduce using rule 18 (dollar_expr -> DOLLAR LPAREN NAME RPAREN .)
+    RSQUARE         reduce using rule 18 (dollar_expr -> DOLLAR LPAREN NAME RPAREN .)
+    RBRACE          reduce using rule 18 (dollar_expr -> DOLLAR LPAREN NAME RPAREN .)
+
+
+state 46
+
+    (17) pair -> NAME MINUS GREATER value .
+
+    COMMA           reduce using rule 17 (pair -> NAME MINUS GREATER value .)
+    RBRACE          reduce using rule 17 (pair -> NAME MINUS GREATER value .)
+
