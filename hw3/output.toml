@@ -1,0 +1,4 @@
+game_title = "Amazing Game"
+speed = 7
+items = [ "sword", "potion", "shield",]
+level = 1
