@@ -140,7 +140,10 @@ def main(archive_file):
     vfs = VirtualFileSystem(archive_file)
 
     while True:
-        prompt = f'{Fore.GREEN}{vfs.current_dir}> '
+        if (vfs.current_dir == "/"):
+            prompt = f'{Fore.GREEN}astakhov.s.p:-$ '
+        else:
+            prompt = f'{Fore.GREEN}astakhov.s.p:-{vfs.current_dir}$ '
         command = input(prompt)
         vfs.run_command(command)
 

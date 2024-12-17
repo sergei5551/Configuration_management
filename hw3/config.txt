@@ -1,5 +1,0 @@
-set server {
-    port -> 8080,
-    max_connections -> 100,
-    timeout -> 30,
-}
