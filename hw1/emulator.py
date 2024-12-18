@@ -1,8 +1,6 @@
 import os
 import sys
 import tarfile
-import subprocess
-
 from colorama import Fore, Style, init
 
 # Инициализация Colorama
@@ -154,16 +152,14 @@ def clear_screen():
         os.system('clear')
 
 def execute_startup_script(vfs, script_path):
+    """Выполнение стартового скрипта."""
     try:
         member = vfs.archive.getmember(script_path)
         if member.isfile():
             with vfs.archive.extractfile(member) as file_obj:
-                powershell_commands = file_obj.read().decode('utf-8')
-                result = subprocess.run(['powershell', '-File', '-', '-'], input=powershell_commands, capture_output=True, text=True)
-                if result.returncode != 0:
-                    print(Fore.RED + f"Ошибка при выполнении скрипта {script_path}:\n{result.stderr}")
-                else:
-                    print(result.stdout)
+                commands = file_obj.read().decode('utf-8').splitlines()
+                for cmd in commands:
+                    vfs.run_command(cmd.strip())
         else:
             print(Fore.RED + f"Сценарий {script_path} не является файлом.")
     except KeyError:

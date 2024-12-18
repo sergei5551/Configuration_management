@@ -4,7 +4,6 @@ import argparse
 import os
 
 
-
 class PackageAnalyzer:
     def __init__(self, package_name, max_depth=1, output_file=None):
         self.package_name = package_name
@@ -12,7 +11,6 @@ class PackageAnalyzer:
         self.output_file = output_file
         self.visited_packages = set()
         self.dot = Digraph(comment=f'Граф зависимостей для {package_name}')
-
 
     def _get_dependencies(self, package_name, depth):
         if not package_name:
@@ -52,24 +50,25 @@ class PackageAnalyzer:
         if self.output_file is None:
             print(self.dot.source)
         else:
-            # Создаём директорию, если она не существует
+            # Создаем директорию, если она не существует
             directory = os.path.dirname(self.output_file)
 
-            # Проверка существования директории
+            # Проверяем существование директории
             if not os.path.exists(directory):
                 raise FileNotFoundError(f"Директория {directory} не найдена.")
 
-            # Создание директории
+            # Создаем директорию
             os.makedirs(directory, exist_ok=True)
 
             with open(self.output_file, 'w') as f:
                 f.write(self.dot.source)
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Инструмент для визуализации графа зависимостей.')
     parser.add_argument('package', help='Имя анализируемого пакета')
     parser.add_argument('-o', '--output-file', help='Путь к файлу-результату в виде кода')
-    parser.add_argument('-d', '--max-depth', type=int, default=1, help='Максимальная глубина анализа зависимостей')
+    parser.add_argument('-d', '--max_depth', type=int, default=1, help='Максимальная глубина анализа зависимостей')
     args = parser.parse_args()
 
     analyzer = PackageAnalyzer(args.package, args.max_depth, args.output_file)
